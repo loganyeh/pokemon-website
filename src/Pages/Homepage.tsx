@@ -1,15 +1,34 @@
+// imports
+import { useState, useEffect } from "react"
+import { fetchPokemon } from "../API/apiHomepage"
 
+//  types
 type PokemonNameData = {
     name: string;
     type: string[];
 }
 
 function Homepage(){
+    // states
+    const [pokeData, setPokeData] = useState([]);
+
+    // variables
     const pokemonData: PokemonNameData[] = [
         {name: "Turtwig", type: ["Grass"]},
         {name: "Grottle", type: ["Grass"]},
         {name: "Torterra", type: ["Grass", "Ground"]},
     ]
+
+    // useEffect
+    useEffect(() => {
+        async function getPokemon(){
+            const data = await fetchPokemon();
+            setPokeData(data);
+        }
+
+        getPokemon();
+    }, [])
+
 
     return(
         <>
